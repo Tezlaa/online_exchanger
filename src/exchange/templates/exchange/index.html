@@ -1,0 +1,289 @@
+{% extends 'exchange/base.html' %}
+{% load static %}
+
+{% block content %}
+    <header class="header">
+        <div class="wrapper">
+            <div class="header__wrapper">
+                <div class="header__contact">
+                    <div class="uk-inline">
+                        <div class="for-large-screens"><p href=""><img src="{% static 'exchange/images/phonelegacy-svgrepo-com 1.png' %}" class="image-phone" alt=""> Контакты</p></div>
+                        <div class="uk-card uk-card-body uk-card-default" uk-drop="animation: reveal-top; animate-out: true; duration: 700">
+                            <span style="color:rgb(28, 100, 0)" >+{{link_viber}}</span><br>
+                            <a href="{{link_tg}}" target="_blank" ><img  width="30px" src="{% static 'exchange/images/telegram-svgrepo-com.svg' %}" alt=""></a>
+                            <a href="viber://add?number={{link_viber}}" target="_blank" ><img width="30px" src="{% static 'exchange/images/viber-chat-app-svgrepo-com.svg' %}" alt=""></a>
+                            <a href="{{link_whatsapp}}" target="_blank"><img  width="30px" src="{% static 'exchange/images/whatsapp-svgrepo-com.svg' %}" alt=""></a>
+                        </div>
+                        <div class="for-small-screens"><p href=""><img src="{% static 'exchange/images/phonelegacy-svgrepo-com 1.png' %}" class="image-phone" alt=""></p></div>
+                        <div class="uk-card uk-card-body uk-card-default" uk-drop="animation: reveal-top; animate-out: true; duration: 700">
+                            <span style="color:rgb(28, 100, 0)" >+{{link_viber}}</span><br>
+                            <a href="{{link_tg}}" target="_blank" ><img  width="30px" src="{% static 'exchange/images/telegram-svgrepo-com.svg' %}" alt=""></a>
+                            <a href="viber://add?number={{link_viber}}" target="_blank" ><img width="30px" src="{% static 'exchange/images/viber-chat-app-svgrepo-com.svg' %}" alt=""></a>
+                            <a href="{{link_whatsapp}}" target="_blank"><img  width="30px" src="{% static 'exchange/images/whatsapp-svgrepo-com.svg' %}" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <form method="post">
+        {% csrf_token %}
+        
+        <main class="main">
+            <section class="intro">
+                <div class="wrapper uk-animation-slide-bottom-medium">
+                   <img class="big_logo" src="{% static 'exchange/images/logo-cash2cashPNG.png' %}" alt="">
+                   <p class="content_under_logo">Простой способ обмена валют, пополнения карт, кошельков,{%if visible_pm%} Parimatch, {% endif %} в любой точке мира, через интернет.</p>
+                </div>
+                
+                <div class="wrapper">
+                    <div class="wrapper__select_currency">
+                        <div class="select_currency_get">
+                            {{form.currency_get}}
+                            {{form.bank_get}}
+                        </div>
+                        <div class="notification" id="notification_over_get_bank">
+                            
+                        </div>
+                        <div class="select_currency_take">
+                            {{form.currency_take}}
+                            {{form.bank_take}}
+                        </div>
+                        <div class="wrapper_input_how_many_get">
+                            {{form.money_get}}
+                        </div>
+                        
+                        <div class="wrapper_input_how_many_take">
+                            {{form.money_take}}
+                        </div>
+                    </div>
+                </div>
+                                
+                <script>
+                    const input_get = document.getElementById('id_money_give');
+                    const input_take = document.getElementById('id_money_take');
+
+                    input_get.addEventListener('input', () => {
+                        if (input_get.value.trim() === '' || input_get.value === 0 || input_take.value === 0) {
+                            UIkit.notification.closeAll();
+                            UIkit.notification({message: 'Введите сумму для обмена!', status: 'danger'});
+                            document.getElementById('go_to_form').disabled = true;
+                        } else {
+                            UIkit.notification.closeAll();
+                            document.getElementById('go_to_form').disabled = false;
+                        }
+                    });
+
+                    input_take.addEventListener('input', () => {
+                        if (input_take.value.trim() === '' || input_get.value === 0 || input_get.value === 0) {
+                            UIkit.notification.closeAll();
+                            UIkit.notification({message: 'Введите сумму для обмена!', status: 'danger'});
+                            document.getElementById('go_to_form').disabled = true;
+                        } else {
+                            UIkit.notification.closeAll();
+                            document.getElementById('go_to_form').disabled = false;
+                        }
+                    });
+                </script>
+                <!-- button submit form -->
+                <div class="wrapper">
+                    <div class="go_to_ecxhange">
+                        <button type="button" class="button_forms_start" data-bs-toggle="modal" data-bs-target="#exampleModal" id="go_to_form">Начать обмен</button>
+                    </div>
+                </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-bottom">
+                        <div class="logo_modal">
+                            <img src="{% static 'exchange/images/logo-cash2cashPNG.png' %}" alt="">
+                        </div>
+                        <div class="modal-content border border-3 border-dark">
+                            <div class="modal-header">
+                                <div class="title-text">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Заполните информацию</h1>
+                                </div>
+                                <div class="closer">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div style="text-align: center;">
+                                    <p class="fs-5">Данные отправителя</p>
+                                </div>
+                                {{ form.username }}
+                                {{ form.binance_wallet_getter }}
+                                {{ form.card_number }}
+                                {{ form.number }}
+                                <div class="icon_under_number_field_wrapper">
+                                    <div class="icon_under_number_field">
+                                        <img  width="30px" src="{% static 'exchange/images/telegram-svgrepo-com.svg' %}" alt="">
+                                        <p class="icon_text">
+                                            Telegram
+                                        </p>
+                                    </div>
+                                    <div class="icon_under_number_field">
+                                        <img width="30px" src="{% static 'exchange/images/viber-chat-app-svgrepo-com.svg' %}" alt="">
+                                        <p class="icon_text">
+                                            Viber
+                                        </p>
+                                    </div>
+                                    <div class="icon_under_number_field">
+                                        <img  width="30px" src="{% static 'exchange/images/whatsapp-svgrepo-com.svg' %}" alt="">
+                                        <p class="icon_text">
+                                            WhatsApp
+                                        </p>
+                                    </div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <p class="fs-5">Данные получателя</p>
+                                </div>
+                                {{ form.username_take }}
+                                {{ form.binance_wallet_taker}}
+                                {{ form.number_taker }}
+                                {{ form.card_number_take }}
+                                <script>
+                                    function initializeCardNumberFormatting() {
+                                        const cardNumberInputs = document.querySelectorAll('input[name^="card_number"]')
+                                        const cardNumberPattern = /^\d{4} \d{4} \d{4} \d{4}$/;
+                                    
+                                        function validateCardNumber() {
+                                            if (!cardNumberPattern.test(this.value)) {
+                                                return false;
+                                            }
+                                            return true;
+                                        }
+                                        
+                                        function formatCardNumber(id) {
+                                            const cardNumberInput = document.getElementById(id);
+                                            let cardNumber = cardNumberInput.value.replace(/[^\d]/g, ''); // remove non-numeric characters
+                                            
+                                            if (cardNumber.length > 16) {
+                                                cardNumber = cardNumber.slice(0, 16);
+                                            }
+                                            
+                                            cardNumber = cardNumber.replace(/(\d{4})/g, '$1 ');
+                                            
+                                            cardNumberInput.value = cardNumber.trim();
+                                        }
+                                        
+                                        for (let i = 0; i < cardNumberInputs.length; i++) {
+                                            const cardNumberInput = cardNumberInputs[i];
+                                            cardNumberInput.addEventListener('input', function() {formatCardNumber(cardNumberInput.id)});
+                                            const form = cardNumberInput.closest('form');
+                                            form.addEventListener('submit', validateCardNumber);
+                                        }
+                                    }
+                                    initializeCardNumberFormatting();
+                                </script>
+                                <script>
+                                    function initializePhoneFormatting() {
+                                        const phoneInputs = document.querySelectorAll('input[name^="number"]');
+                                        const phonePattern = /^\+\d{1,3} \d{1,3} \d{4,}$/;
+                                    
+                                        function validatePhoneNumber() {
+                                            if (!phonePattern.test(this.value)) {
+                                                return false;
+                                            }
+                                            return true;
+                                        }
+                                    
+                                        function formatPhoneNumber(id) {
+                                            const phoneInput = document.getElementById(id);
+                                            let phoneNumber = phoneInput.value.replace(/[^\d\+]/g, ''); // remove non-numeric and non-plus characters
+                                    
+                                            if (phoneNumber.length > 13) {
+                                                phoneNumber = phoneNumber.slice(0, 13);
+                                            }
+                                    
+                                            phoneNumber = phoneNumber.replace(/^(\d{1,3})(\d{1,3})?(\d{1,4})?$/, '+$1 $2 $3');
+                                    
+                                            phoneInput.value = phoneNumber.trim();
+                                        }
+                                    
+                                        for (let i = 0; i < phoneInputs.length; i++) {
+                                            const phoneInput = phoneInputs[i];
+                                            phoneInput.addEventListener('input', function() {formatPhoneNumber(phoneInput.id)});
+                                            const form = phoneInput.closest('form');
+                                            form.addEventListener('submit', validatePhoneNumber);
+                                        }
+                                    }
+                                    initializePhoneFormatting();
+                                </script>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="close_modal" data-bs-dismiss="modal">Вернуться</button>
+                                <button class="send_message" type="submit" id="go_to_trade">Начать обмен</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- table ecxhange rate -->
+                <div class="wrapper" >
+                    <div class="uk-card-margin uk-card uk-animation-slide-bottom-medium">
+                        <p class="text_table_rate br_text_table">Курсы валют на {{date}}</p>
+                        <div class="uk-card uk-animation-slide-bottom-medium tabel_wrapper">
+                            <div class="table" id="get">
+                                <table>
+                                    {% for item in rate_buy %}
+                                        <tr>
+                                            <th>{{item.symbol1}}/{{item.symbol2}}</th>
+                                            <th>{{item.price}}</th>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                            <div class="table" id="take">
+                                <table>
+                                    {% for item in rate_sell %}
+                                        <tr>
+                                            <th>{{item.symbol1}}/{{item.symbol2}}</th>
+                                            <th>{{item.price}}</th>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                        {% if visible_pm %}
+                            <img class="casino-logo" src="{% static 'exchange/images/logo_pm.svg' %}">
+                            <div class="header_parimatch_wrapper">
+                                <p class="header_exchange_rate">ввод</p>
+                                <p class="header_exchange_rate">вывод</p>
+                            </div>
+                            <div class="uk-card uk-animation-slide-bottom-medium tabel_wrapper">
+                                <div class="table" id="take_pm">
+                                    <table>
+                                        <tr>
+                                            <th uk-tooltip="UAH/Parimatch USDT">UAH/PM</th>
+                                            <th>{{pm_buy.price}}</th>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="table" id="get_pm">
+                                    <table>
+                                        <tr>
+                                            <th uk-tooltip="Parimatch USDT/UAH">PM/UAH</th>
+                                            <th>{{pm_sell.price}}</th>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <p class="content_under_logo">Совершайте быстрые и выгодные обмены валюты на сайте Cash2Cash! Наш обменник предлагает отличный курс и оперативную обработку заявок. Обменивайте любую валюту без лишних комиссий и скрытых платежей. Убедитесь в простоте и надежности нашего сервиса !</p>
+                    <br>
+                </div>
+            </div>
+        </section>
+    </main>
+</form>
+<script src="{% static 'exchange/js/scripts.js' %}"></script>
+<script src="{% static 'exchange/js/get_banks.js' %}"></script>
+<script src="{% static 'exchange/js/update_money.js' %}"></script>
+<script>
+    initializeCardNumberFormatting();
+    updateMoneyFields();
+    edit_forms();
+</script>
+<script>
+    document.getElementById("id_money_give").required = true;
+</script>
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends 'exchange/base.html' %}
+
+
+{% block content %}
+    <div class="successful">
+        <h1>Ожидайте поступления средств по заявке №{{id_order}}, {{money_get}} {{currency}} в течении 5-30 минут</h1>
+        <button id="redirect" class="button_forms_start">В главное меню</button>
+    </div>
+    <script>
+        // Добавляем новую запись в историю браузера
+        window.history.pushState(null, null, document.URL);
+        
+        // Отслеживаем событие beforeunload и выводим сообщение с предупреждением о потере данных
+        window.addEventListener('beforeunload', function(event) {
+            event.preventDefault();
+        });
+        
+        // Отслеживаем событие popstate и перенаправляем пользователя на главную страницу
+        window.addEventListener('popstate', function(event) {
+            window.location.href = '/'; // замените на свой URL главной страницы
+        });
+        
+        // Отключаем кнопку "вперёд"
+        if (typeof window.history.pushState === 'function') {
+            history.pushState(null, null, document.URL);
+            window.addEventListener('popstate', function () {
+                history.pushState(null, null, document.URL);
+            });
+        }
+        
+        const myButton = document.getElementById("redirect");
+        myButton.addEventListener("click", function() {
+
+          window.location.href = "/";
+          
+          myButton.disabled = true;
+        });
+    </script>
+{% endblock content %}
+    

@@ -1,0 +1,1662 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0-modified | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+/* make sure to set some focus styles for accessibility */
+:focus {
+    outline: 0;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+input[type=search]::-webkit-search-cancel-button,
+input[type=search]::-webkit-search-decoration,
+input[type=search]::-webkit-search-results-button,
+input[type=search]::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+input[type=search] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+textarea {
+    overflow: auto;
+    vertical-align: top;
+    resize: vertical;
+}
+
+/**
+ * Correct `inline-block` display not defined in IE 6/7/8/9 and Firefox 3.
+ */
+
+audio,
+canvas,
+video {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    max-width: 100%;
+}
+
+/**
+ * Prevent modern browsers from displaying `audio` without controls.
+ * Remove excess height in iOS 5 devices.
+ */
+
+audio:not([controls]) {
+    display: none;
+    height: 0;
+}
+
+/**
+ * Address styling not present in IE 7/8/9, Firefox 3, and Safari 4.
+ * Known issue: no IE 6 support.
+ */
+
+[hidden] {
+    display: none;
+}
+
+/**
+ * 1. Correct text resizing oddly in IE 6/7 when body `font-size` is set using
+ *    `em` units.
+ * 2. Prevent iOS text size adjust after orientation change, without disabling
+ *    user zoom.
+ */
+
+html {
+    font-size: 100%; /* 1 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+    -ms-text-size-adjust: 100%; /* 2 */
+}
+
+/**
+ * Address `outline` inconsistency between Chrome and other browsers.
+ */
+
+a:focus {
+    outline: thin dotted;
+}
+
+/**
+ * Improve readability when focused and also mouse hovered in all browsers.
+ */
+
+a:active,
+a:hover {
+    outline: 0;
+}
+
+/**
+ * 1. Remove border when inside `a` element in IE 6/7/8/9 and Firefox 3.
+ * 2. Improve image quality when scaled in IE 7.
+ */
+
+img {
+    border: 0; /* 1 */
+    -ms-interpolation-mode: bicubic; /* 2 */
+}
+
+/**
+ * Address margin not present in IE 6/7/8/9, Safari 5, and Opera 11.
+ */
+
+figure {
+    margin: 0;
+}
+
+/**
+ * Correct margin displayed oddly in IE 6/7.
+ */
+
+form {
+    margin: 0;
+}
+
+/**
+ * Define consistent border, margin, and padding.
+ */
+
+fieldset {
+    border: 1px solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em;
+}
+
+/**
+ * 1. Correct color not being inherited in IE 6/7/8/9.
+ * 2. Correct text not wrapping in Firefox 3.
+ * 3. Correct alignment displayed oddly in IE 6/7.
+ */
+
+legend {
+    border: 0; /* 1 */
+    padding: 0;
+    white-space: normal; /* 2 */
+    *margin-left: -7px; /* 3 */
+}
+
+/**
+ * 1. Correct font size not being inherited in all browsers.
+ * 2. Address margins set differently in IE 6/7, Firefox 3+, Safari 5,
+ *    and Chrome.
+ * 3. Improve appearance and consistency in all browsers.
+ */
+
+button,
+input,
+select,
+textarea {
+    font-size: 100%; /* 1 */
+    margin: 0; /* 2 */
+    vertical-align: baseline; /* 3 */
+    *vertical-align: middle; /* 3 */
+}
+
+/**
+ * Address Firefox 3+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet.
+ */
+
+button,
+input {
+    line-height: normal;
+}
+
+/**
+ * Address inconsistent `text-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `text-transform` values.
+ * Correct `button` style inheritance in Chrome, Safari 5+, and IE 6+.
+ * Correct `select` style inheritance in Firefox 4+ and Opera.
+ */
+
+button,
+select {
+    text-transform: none;
+}
+
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others.
+ * 4. Remove inner spacing in IE 7 without affecting normal text inputs.
+ *    Known issue: inner spacing remains in IE 6.
+ */
+
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"] {
+    -webkit-appearance: button; /* 2 */
+    cursor: pointer; /* 3 */
+    *overflow: visible;  /* 4 */
+}
+
+/**
+ * Re-set default cursor for disabled elements.
+ */
+
+button[disabled],
+html input[disabled] {
+    cursor: default;
+}
+
+/**
+ * 1. Address box sizing set to content-box in IE 8/9.
+ * 2. Remove excess padding in IE 8/9.
+ * 3. Remove excess padding in IE 7.
+ *    Known issue: excess padding remains in IE 6.
+ */
+
+input[type="checkbox"],
+input[type="radio"] {
+    box-sizing: border-box; /* 1 */
+    padding: 0; /* 2 */
+    *height: 13px; /* 3 */
+    *width: 13px; /* 3 */
+}
+
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome
+ *    (include `-moz` to future-proof).
+ */
+
+input[type="search"] {
+    -webkit-appearance: textfield; /* 1 */
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box; /* 2 */
+    box-sizing: content-box;
+}
+
+/**
+ * Remove inner padding and search cancel button in Safari 5 and Chrome
+ * on OS X.
+ */
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+/**
+ * Remove inner padding and border in Firefox 3+.
+ */
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/**
+ * 1. Remove default vertical scrollbar in IE 6/7/8/9.
+ * 2. Improve readability and alignment in all browsers.
+ */
+
+textarea {
+    overflow: auto; /* 1 */
+    vertical-align: top; /* 2 */
+}
+
+/**
+ * Remove most spacing between table cells.
+ */
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #222;
+}
+
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+img {
+    vertical-align: middle;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.chromeframe {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+
+
+/* Start css */
+
+html{
+  box-sizing: border-box;
+}
+*, *::before, *::after{
+  box-sizing: inherit;
+}
+
+body{
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 42px;
+    letter-spacing: 1px;
+    color: white;
+}
+
+button {
+    font-family: 'Jost';
+    background: #FFFFFF;
+    border: 2px solid #415237;
+    border-radius: 6px;
+}
+
+.for-small-screens {
+    display: none;
+}
+
+.wrapper_small_screen{
+    display: none;
+}
+
+
+.wrapper{
+  max-width: 1060px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Header styles start */
+
+.header {
+  background-color: #202800;
+}
+
+.header__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.header__contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.header__list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.header__contact{
+  color: white;
+}
+
+.header__button{
+    width: 120px;
+    height: 35px;
+    margin-bottom: 1px;
+    color: black;
+}
+
+.text-button {
+    font-weight: 600;
+    font-size: 18px;
+    align-content: center;
+    font-style: 600;
+}
+
+.header__button:hover{
+  opacity: .75;
+}
+
+.image-phone{
+    width: 55px;
+}
+/* Header styles end*/
+
+
+
+
+/* background-main styles start*/
+.intro {
+    height: max-content;
+    background: url(../images/background.jpg) center, no-repeat ;
+    background-size: cover;
+}
+
+.big_logo {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    top: 51px;
+    margin-bottom: 15px;
+}
+
+.content_under_logo{
+    text-align: center;
+    font-weight: 400;
+    line-height: 35px;
+    color: #FFFFFF;
+    letter-spacing: 0px;
+    font-size: 30px;
+}
+
+.button_center_under_logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 150px;
+}
+
+.button_under_logo_start {
+    width: 211px;
+    height: 62px;
+
+    box-shadow: 0px 7px 30px #000000;
+    border-radius: 20px;
+    background: #415237;
+}
+
+.button_under_logo_start:active{
+    box-shadow: 0px 1px 18px black;
+}
+
+.button_under_logo_start:hover{
+    background: #4b5a42;
+}
+
+
+.text-button_undel_logo {
+    letter-spacing: 1.35px;
+    color: white;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 0px; 
+}
+/* background-main styles end*/
+
+
+
+
+/* exchange styles start*/
+select {
+    box-sizing: border-box;
+}
+
+.notification {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 500;
+    color: #E04F6E;
+    order: 2;
+    padding: 24px;
+}
+
+.wrapper_large_screen{
+    max-width: 1030px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.exchange__wrap{
+    max-width: 1060px;
+    margin: 0 auto;
+}
+
+.wrapper__select_currency {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.select_currency_get{
+    justify-content: left;  
+    margin-bottom: 10px;
+    margin-top: 40px;
+}
+
+.select_currency_take{
+    margin-bottom: 10px;
+    justify-content: left;   
+}
+
+.select_currency{
+    width: 112px;
+    height: 65px;
+
+    border: 0px;
+    background: #415237;
+    border-radius: 20px;
+    color:#B2B2B2;
+    text-align: center;
+    font-size: 33px;
+    font-weight: 400;
+
+    box-shadow: 0px 0px 13px 0px rgb(19 25 0);
+    padding-left: 10px;
+    /* padding-top: 3px; */
+}
+
+.select_banks {
+    width: 250px;
+    height: 65px;
+
+    border: 0px;
+    background: #415237;
+    border-radius: 20px;
+    color:#B2B2B2;
+    text-align: center;
+    font-size: 33px;
+    font-weight: 400;
+
+    box-shadow: 0px 0px 13px 0px rgb(19 25 0);
+}
+
+.wrapper__select_how_many {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    text-align: center;
+    
+}
+.button_forms_start {
+    width: 100%;
+    height: 65px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    background: #FFFFFF;
+    border-radius: 23px;
+
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 53px;
+
+    color: #000000;
+    box-shadow: 0px 0px 13px 1px rgb(65 82 55);
+}
+
+.go_to_ecxhange {
+    display: flex;
+    justify-content: center;
+}
+
+.image_reverse {
+    width: 70px;
+    color:#93b281;
+}
+
+/* exchange style end */
+
+
+
+
+
+/* exchange rate style start */
+
+.uk-card-margin {
+    margin-bottom: 30px;
+}
+
+.wrapper__exchange_rate {
+    max-width: 1060px;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.text_table_rate {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 51px;
+
+    color: #FFFFFF;
+}
+
+.header_parimatch_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.header_exchange_rate {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 51px;
+
+    color: #9d9d9d8f;
+    border-right: none;
+
+    width: 50%;
+}
+
+.tabel_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.table{
+    width: 50%;
+    border-right: 1px solid #8d8d8d79;
+}
+
+.table:last-child {
+    border-right: none;
+}
+
+.table table {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 43px;
+    text-align: center;
+
+    color: #ffffffad;
+}
+
+.table tr {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    padding: 0px;
+}
+
+.table th:last-child {
+    padding-left: 30px;
+    color: white;
+}
+
+.uk-tooltip {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 43px;
+    text-align: center;
+}
+
+.br_text_table{
+    margin-bottom: 30px;
+}
+
+.casino-logo {
+    width: 180px;
+}
+/* exchange rate style end */
+
+
+
+
+
+/* modal style start */
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.modal-footer {
+    justify-content: center;
+}
+
+.btn{
+    font-family: 'Jost';
+}
+
+.modal-content {
+    border-radius: 10px;
+    font-style: normal;
+    font-weight: 100;
+    color: #000;
+
+    border: 10px;
+    border-color: #202800;
+
+    margin-top: 20px;
+    margin-bottom: 85px;
+}
+
+.show {
+    background-color: #0C1000;
+}
+
+.fs-3{
+    color: #000;
+}
+
+.modal-dialog {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-content: center;
+}
+
+.modal {
+    display: flex;
+    align-items: flex-end;
+}
+
+.modal-title {
+    margin-left: 30px !important;
+    text-align: center !important;
+  }
+
+.form-control-updata {
+    color: #6a7c60;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.trc-form {
+    display: flex;
+    background: url('../images/tether-usdt-logo.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: contain;
+    
+    padding-right: 49px;
+}
+
+.form-control-number {
+    color: #6a7c60;
+    font-size: 20px;
+}
+
+.form-control-number:focus {
+    border-color: rgb(63, 97, 51) !important;
+    box-shadow: 0 0 5px rgb(51, 73, 53) !important;
+}
+
+.form-floating mb-3 {
+    font-style: normal;
+    font-weight: 100;
+}
+.send_message {
+    background-color: #4b5a42;
+    color: white;
+}
+
+.send_message:hover {
+    transition: all 2s ease;
+    background-color: #607455;
+}
+
+.close_modal {
+    background-color: #9fb791;
+    color: white;
+    border-color: rgba(255, 250, 240, 0);
+}
+
+.close_modal:focus{
+    background-color: #67755e;
+}
+
+.close_modal:hover{
+    transition: all 2s ease;
+    background-color: #67755e;
+}
+
+.title-text {
+    margin: 0 auto;
+}
+
+.closer {
+    margin-left: 0;
+}
+
+.btn-close:focus {
+    border-color: rgb(63, 97, 51) !important;
+    box-shadow: 0 0 5px rgb(51, 73, 53) !important;
+}
+
+.form-control-updata:focus {
+    border-color: rgb(63, 97, 51) !important;
+    box-shadow: 0 0 5px rgb(51, 73, 53) !important;
+}
+
+.icon_under_number_field_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon_text {
+    display: flex;
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+.icon_under_number_field {
+    display: flex;
+}
+
+/* modal style end */
+
+
+
+
+
+/* folder style start */
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #202800;
+    color: white;
+    text-align: center;
+}
+
+.input_how_many_take, .input_how_many_get {
+    width: 500px;
+    height: 65px;
+    left: 392px;
+    top: 1177px;
+    background: #415237;
+    border-radius: 23px;
+    border: 0;
+
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 37px;
+
+    color: #f4f4f4;
+    padding-left: 20px;
+
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 6px;
+    box-shadow: 0px 0px 13px 0px rgb(19 25 0);
+}
+
+input[type="number"]::-webkit-input-placeholder {
+ color: #B2B2B2;
+} 
+
+input[type="number"]::-moz-placeholder {
+ color: #B2B2B2;
+}
+
+
+
+
+
+
+/* waiting part style start */
+.waiting{
+    padding: 0;
+    margin: 0;
+    background-color: #5e7002;
+    text-align: center;
+    height: 100%;
+    font-family: 'lato';
+    font-weight: 100;;
+}
+
+.wrapper_loader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 150px;
+    grid-gap:7px;
+  }
+
+.circle{
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background-color: #647702;
+  border-radius: 50%;
+  animation: loading 1.5s cubic-bezier(.8, .5, .2, 1.4) infinite;
+  transform-origin: bottom center;
+  position: relative;
+}
+@keyframes loading{
+  0%{
+    transform: translateY(0px);
+    background-color: #647702;
+  }
+  50%{
+    transform: translateY(50px);
+    background-color: #ffffff;
+  }
+  100%{
+    transform: translateY(0px);
+    background-color: #647702;
+  }
+}
+.circle-1{
+  animation-delay: 0.1s;
+}
+.circle-2{
+  animation-delay: 0.2s;
+}
+.circle-3{
+  animation-delay: 0.3s;
+}
+.circle-4{
+  animation-delay: 0.4s;
+}
+.circle-5{
+  animation-delay: 0.5s;
+}
+.circle-6{
+  animation-delay: 0.6s;
+}
+.circle-7{
+  animation-delay: 0.7s;
+}
+.circle-8{
+  animation-delay: 0.8s;
+}
+
+
+.content-block {
+    display: flex;
+    max-width: 1040px;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper-text{
+    display: flex;
+    max-width: 1040px;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-for-waiting{
+    font-family: 'Jost';
+    font-style: normal;
+    margin-top: 100px;
+}
+
+.text-for-waiting h1 {
+    font-weight: 500;
+    font-size: 35px;
+}
+
+.text-for-waiting h2 {
+    font-size: 30px;
+}
+
+.text-for-waiting h3 {
+    color: #bfff00;
+}
+
+.back_to_main_wrapper {
+    margin-top: 40px;
+    display: none;
+    justify-content: center;
+}
+
+.back_to_main_button{
+    padding: 10px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px #00000040;
+    border-radius: 10px;
+    border-color: white;
+}
+
+.back_to_main_button:hover {
+    background: #d4d4d4;
+    border-color: #d4d4d4;
+}
+
+.back_to_main_button:active{
+    box-shadow: 0 5px #6c6c6c40;
+}
+
+.back_to_main_button p{
+    font-family: 'Jost';
+    font-weight: 400;
+    font-size: 25px;
+}
+
+.back_to_main_button_close {
+    padding: 10px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px #00000040;
+    border-radius: 10px;
+    border-color: white;
+}
+
+.back_to_main_button_close:hover {
+    background: #d4d4d4;
+    border-color: #d4d4d4;
+}
+
+.back_to_main_button_close:active{
+    box-shadow: 0 5px #6c6c6c40;
+}
+
+.back_to_main_button_close p{
+    font-family: 'Jost';
+    font-weight: 400;
+    font-size: 25px;
+}
+
+.back_to_main_button_agree {
+    padding: 10px;
+    background: #e3ffd8;
+    box-shadow: 0px 4px 4px #00000040;
+    border-radius: 10px;
+    border-color: #e3ffd8;
+}
+
+.back_to_main_button_agree:hover {
+    background: #d4d4d4;
+    border-color: #d4d4d4;
+}
+
+.back_to_main_button_agree:active{
+    box-shadow: 0 5px #6c6c6c40;
+}
+
+.text_form_admin {
+    margin-top: 20px;
+    font-family: 'Jost';
+    font-size: 35px;
+    font-weight: 700;
+    color: #bfff00;
+    text-shadow: -4px 12px 16px rgba(0, 0, 0, 0.52);
+}
+
+#response {
+    word-wrap: break-word;
+}
+
+.uk-modal-dialog h2{
+    font-family: 'Jost';
+    color: #4b4b4b;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.uk-modal-dialog p {
+    font-family: 'Jost';
+    color: #6a6a6a;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 25px;
+}
+
+.list-group {
+    --bs-list-group-color: rgb(255, 255, 255) !important;
+    font-family: 'Jost' !important;
+    font-size: 19px !important;
+    --bs-list-group-bg: 0 !important;
+    margin-bottom: 0px !important;
+}
+
+.uk-form-custom {
+    display: flex;
+    width: 502px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+@media (max-width: 550px){
+    .uk-form-custom{
+        width: 374px;
+    }
+}
+
+.timer_after {
+    font-family: 'Jost';
+    font-size: 55px;
+    font-weight: 600;
+    color: #bfff00;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* waiting part style end */
+
+
+
+
+
+
+
+/* successful_trade */
+.successful{
+    height: 100vh;
+    width: 100%;
+    background-color: #5e7002;
+    text-align: center;
+}
+
+.successful h1 {
+    margin: 0;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Jost';
+    font-weight: 500;
+    font-size: 35px;
+    color: white;
+}
+
+.successful button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    width: 270px;
+    border: white;
+    margin-top: 100px;
+}
+
+/* folder style end */
+
+
+
+
+
+/* icon chat */
+.chat-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+  }
+  
+.chat-icon a img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0px 0px 13px 1px rgb(65 82 55);
+}
+
+.chat-icon a img:hover {
+  width: 50px;
+  height: 50px;
+}
+
+.social-icons {
+  position: absolute;
+  bottom: -200px;
+  right: 41%;
+  transform: translateX(50%);
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.chat-icon:hover .social-icons {
+  bottom: 59px;
+  opacity: 1;
+}
+
+.social-icons a {
+  display: block;
+  margin-bottom: 5px;
+  color: #fff;
+  width: 60px;
+  height: 60px;
+  border-radius: 0px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+}
+
+.social-icons a img {
+  width: 50px;
+  height: 50px;
+}
+
+.chat-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 9999;
+}
+
+.chat-icon img {
+    animation: pulse 1s ease-in-out infinite alternate;
+  }
+  
+  .social-icons img{
+    animation: pulse 3s ease-in-out infinite alternate;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.05);
+    }
+  }
+/* end icon chat */
+
+
+.uk-notification div{ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+/* adaprion */
+@media (max-width: 1040px) {
+    .input_how_many_take, .input_how_many_get {
+        width: 374px;
+    }
+
+    .image_reverse{
+        display: none;
+    }
+
+    .content_under_logo {
+        font-size: 25px;
+    }
+    .wrapper{
+        max-width: 768px;
+    }
+
+    .wrapper_large_screen{
+        max-width: 768px;
+    }
+    
+    .image-phone {
+        width: 55px;
+    }
+
+    p {
+        font-size: 22px;
+    }
+    .header__button {
+        width: 200px;
+        height: 45px;
+        margin-bottom: 10px;
+    }
+    .text-button {
+        font-size: 30px;
+    }
+
+    .header__list {
+        margin-bottom: 5px;
+    }
+
+    .notification {
+        display: flex;
+    }
+
+    .text_table_rate{
+        font-size: 25px;
+    }
+
+    .table table {
+        font-size: 20px;
+    }
+
+    .table tr {
+        display: flex;
+        margin-bottom: 8px;
+    }
+    
+    .table th:last-child {
+        padding-left: 40px;
+        color: white;
+    }
+
+    .header_exchange_rate {
+        font-size: 20px;
+    }
+
+    .casino-logo {
+        width: 133px;
+    }
+    
+}
+
+
+
+
+@media (max-width: 805px) {
+    .select_currency, .select_banks{
+        height: 53px;
+        font-size: 30px;
+    }
+
+    .select_currency_get, .select_currency_take {
+        margin-bottom: 7px;
+    }
+    
+    .wrapper__select_currency, .wrapper__select_how_many{
+        align-items: center;
+        justify-content: center;
+    }
+
+    .image_reverse {
+        display: flex;
+        order: 2;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .input_how_many_get, .input_how_many_take {
+        font-size: 30px;
+        height: 53px;
+        border-radius: 20px;
+    }
+
+    .wrapper__select_currency {
+        flex-direction: column;
+      }
+      
+    .select_currency_take {
+      order: 2;
+    }
+    
+    .wrapper_input_how_many_take {
+      order: 2;
+    }
+    
+    .select_currency {
+        width: 123px;
+    }
+    
+
+    .select_currency{
+        float: left;
+        margin-right: 7px;
+    }
+
+    .wrapper{
+        max-width: 437px;
+    }
+
+    .wrapper_large_screen{
+        display: none;
+    }
+
+    .wrapper_small_screen{
+        display: flex;
+        max-width: 437px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .header__button{
+        display: none;
+    }
+    
+    .for-large-screens{
+        display: none;
+    }
+    
+    .for-small-screens {
+        display: flex;
+    }
+
+    .button_forms_start {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        width: 380px;
+    }
+
+    .text-for-waiting {
+        margin-top: 30px;
+        font-size: 20px;
+    }
+
+    .text-for-waiting h1 {
+        font-weight: 500;
+        font-size: 30px;
+    }
+
+    .text-for-waiting h2 {
+        font-size: 25px;
+    }
+
+    .text-for-waiting p {
+        font-size: 23px;
+        line-height: 30px;
+    }
+
+    .text-for-waiting h3 {
+        color: #bfff00;
+    }
+    
+    .back_to_main_button {
+        margin-top: 18px;
+    }
+
+    .waiting {
+        height: max-content;
+    }
+
+    .notification {
+        display: flex;
+        padding: 33px;
+    }
+
+    .successful h1 {
+        max-width: 598px;
+        padding: 30px;
+    }
+    
+    .select_banks{
+        width: 246px;
+    }
+    
+    .select_currency {
+        padding-left: 26px;
+    }
+    
+    .button_forms_start {
+        font-size: 27px;
+    }
+
+    .table table {
+        font-size: 16px;
+    }
+
+    .table tr {
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    .table th:last-child {
+        padding-left: 15px;
+        color: white;
+    }
+
+    .text_table_rate {
+        font-size: 20px;
+    }
+
+    .casino-logo {
+        width: 100px;
+    }
+
+    .input_how_many_take, .input_how_many_get{
+        padding-left: 0px;
+        text-align: center;
+    }
+
+}
+
+
+
+
+@media (max-width: 437px){
+    .successful h1 {
+        font-size: 30px;
+        max-width: 367px;
+        padding: 0px;
+    }
+
+    .wrapper {
+        max-width: 300px;
+    }
+    .uk-table {
+        max-width: 320px;
+    }
+    .input_how_many_get, .input_how_many_take{
+        width: 286px;
+        font-size: 27px;
+    }
+    .content_under_logo {
+        font-size: 20px;
+    }
+    .select_banks {
+        width: 180px;
+    }
+
+    .select_currency {
+        width: 99px;
+        padding-left: 14px;
+    }
+
+    .highlight-on-hover {
+        font-size: 17px;
+    }
+
+    .button_forms_start{
+        max-width: 289px;
+        display: flex;
+        align-items: center; 
+        justify-content: center;
+        width: 100%;
+        height: 56px;
+        margin-top: 30px;
+        margin-bottom: 30x;
+    
+        background: #FFFFFF;
+        border-radius: 26px;
+    
+        font-family: 'Jost';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 32px;
+        line-height: 53px;
+    
+        color: #000000;
+        box-shadow: 0px 0px 13px 1px rgb(65 82 55);
+    }
+
+    .text_form_admin {
+        font-size: 22px;
+    }
+
+    .waiting {
+        height: max-content;;
+    }
+
+    .back_to_main_wrapper {
+        margin-top: 110px;
+    }
+
+    .back_to_main_wrapper{
+        margin-top: -6px;
+    }
+    
+    .uk-form-custom {
+        width: 274px;
+    }
+
+    .notification {
+        padding: 24px;
+    }
+
+    .select_banks, .select_currency{
+        font-size: 25px;
+    }
+
+    .table table {
+        font-size: 13px;
+    }
+
+    .table tr {
+        margin-bottom: 5px;
+    }
+    
+}

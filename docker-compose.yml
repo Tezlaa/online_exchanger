@@ -1,0 +1,42 @@
+services:
+  database-cash2cash:
+    image: postgres
+    volumes:
+      - ./docker/database:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  web-app:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - ./docker/deployFiles/static:/src/static
+      - ./docker/deployFiles/media:/src/media
+    env_file:
+      - .env
+    depends_on:
+      - database-cash2cash
+    command: >
+      sh -c "python manage.py collectstatic --noinput && python manage.py makemigrations && python manage.py migrate && gunicorn --bind 0.0.0.0:8000 config.wsgi:application"
+
+    restart: always
+
+  nginx:
+    build:
+      dockerfile: ./docker/nginx/Dockerfile
+      context: .
+    image: web-nginx
+    volumes:
+      - ./docker/deployFiles/static:/src/static
+      - ./docker/deployFiles/media:/src/media
+    depends_on:
+      - web-app
+    ports:
+      - "${NGINX_EXTERNAL_PORT}:80"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"

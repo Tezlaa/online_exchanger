@@ -1,0 +1,271 @@
+{% extends 'exchange/base.html' %}
+{% load static %}
+
+{% block content %}
+{% csrf_token %}
+    <script>
+        type_message = ['Номер карты появится здесь', 'Номер кошелька TRC-20 появится здесь', 'Номер кошелька BTC Legacy появится здесь', 'Номер кошелька ERC-20 появится здесь']
+        if (window.history && window.history.pushState) {
+            $(window).on('popstate', function() {
+                window.history.go(-1);
+            });
+        }
+
+        window.history.pushState(null, "", window.location.href);
+        window.onpopstate = function() {
+            window.history.go(-1);
+        };
+    
+        window.addEventListener("beforeunload", function (event) {
+            var number = document.getElementById('response').textContent;
+            const photoUpload = document.getElementById('photo-upload');
+            console.log(number)
+            if (type_message.includes(number)) {
+                var message = '❗❗❗№{{id_order}} Покинул страницу ❗❗❗'
+                fetch('/api/v1/sendLeave/{{id_order}}?message=' + message);
+            }else if (photoUpload.disabled === false){
+                var message = '❗❗❗№{{id_order}} Покинул страницу без отправки чека ❗❗❗'
+                fetch('/api/v1/sendLeave/{{id_order}}?message=' + message);
+            }
+        });
+    </script>
+
+    <div class="loader-wrapper">
+        <div class="loader">
+          <img src="{% static 'exchange/images/Rolling-1s-200px.svg' %}">
+        </div>
+    </div>
+
+    <style>
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 9999;
+          }
+          
+          .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            z-index: 10000;
+          }
+    </style>
+    <script>
+        const loaderWrapper = document.querySelector('.loader-wrapper');
+
+        function showLoader() {
+          loaderWrapper.style.display = 'block';
+        }
+
+        function hideLoader() {
+          loaderWrapper.style.display = 'none';
+        }
+        hideLoader();
+    </script>
+
+    <div class="waiting">
+        <div class="wrapper">
+            <div class="wrapper-text">
+                <div class="uk-card uk-animation-scale-up">
+                    <div class="text-for-waiting">
+                        <div id="timerDisplay" class="timer_after"></div>
+                        <h1>Ваш запрос на обмен №{{id_order}} передан в обработку</h1>
+                        <p>
+                            Для завершения обмена Вам необходимо перевести <span style="color: #bfff00">{{money_get}} {{currency}}</span>
+                            {% if currency_get == 'PM' or currency_get == 'USDT' %}
+                                {% now 'Номер кошелька TRC-20 появится здесь' as number_message %}  
+                                на кошелёк TRC-20, который
+                            {% elif currency_get == 'BTC' %}
+                                {% now 'Номер кошелька BTC Legacy появится здесь' as number_message %}  
+                                на кошелек BTC Legacy, который
+                            {% elif currency_get == 'ETH' %}
+                                {% now 'Номер кошелька ERC-20 появится здесь' as number_message %}  
+                                на кошелек ERC-20, который
+                            {% else %}
+                                {% now 'Номер карты появится здесь' as number_message %}  
+                                на номер карты, которая
+                            {% endif %}
+                           появится в течении нескольких минут
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="uk-card uk-animation-scale-up">
+                <h1 type="text" class="text_form_admin" id="response">{{number_message}}</h1>
+                <div class="back_to_main_wrapper" id="back_to_main">
+                    <form id="photo-form" method="post">
+                        <div class="wrapper_after_answer">
+
+                            <div style="margin-top: 8px;">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"></li>
+                                    <li class="list-group-item">
+                                        Время перевода средств на указанную карту 10 минут, по истечению времени заявка автоматически аннулируется.
+                                    </li>                                    <li class="list-group-item">
+                                        Сумма перевода должна быть точно как указано в заявке: <strong>{{money_get}}</strong>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Карта только для единоразового перевода, никогда не переводите деньги повторно.
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="js-upload" id="upload_b" uk-form-custom style="background-color: #ffffff; border-radius: 10px; box-shadow: 0px 4px 4px #00000040;">
+                                            <input type="file" class="send_photo" name="photo" id="photo-upload" multiple>
+                                            <button id="attach-photo-btn" class="uk-button uk-button-default" style="border: none; font-family: 'Jost'; font-size: 20px;" type="button" tabindex="-1">
+                                                Прикрепить фото/скриншот чека
+                                                <img src="{% static 'exchange/images/click-svgrepo-com.svg' %}" width="30px">
+                                            </button>
+                                        </div>
+                                        <script>
+                                            const upload_b = document.getElementById('upload_b');
+                                            const photoUpload = document.getElementById('photo-upload');
+                                        
+                                            photoUpload.addEventListener('change', () => {
+                                                upload_b.style.backgroundColor = '#afafaf';
+                                                photoUpload.disabled = true;
+                                            });
+                                        </script>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Eсли у вас возникнут вопросы, пишите в наш чат.
+                                    </li>
+                                    <li class="list-group-item"></li>
+                                </ul>
+                                <button id="submit_photo" class="back_to_main_button"><p>Подтвердить оплату</p></button>
+                            </div>  
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper_loader" id="loading">
+            <span class="circle circle-1"></span>
+            <span class="circle circle-2"></span>
+            <span class="circle circle-3"></span>
+            <span class="circle circle-4"></span>
+            <span class="circle circle-5"></span>
+            <span class="circle circle-6"></span>
+            <span class="circle circle-7"></span>
+            <span class="circle circle-8"></span>
+        </div>
+        <div id="enter"><br><br><br><br><br><br><br><br><br><br><br><br></div>
+        <br><br><br><br><br>
+    </div>
+    <script>
+        const apiUrl = `/api/v1/responseTelegram?id_order={{id_order}}`;
+        let timerId;
+        
+        function fetchData() {
+          fetch(apiUrl)
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                throw new Error('Ошибка сети');
+              }
+            })
+            .then(data => {
+              if (data.status !== "empty") {
+                clearInterval(timerId);
+                var response_text = document.getElementById("response").innerHTML = data.response;
+                if ('{{number_message}}' === 'Номер карты появится здесь'){
+                    const cardNumber = data.response.match(/\d{4}\s?\d{4}\s?\d{4}\s?\d{4}/)[0];
+                    const name = data.response.replace(cardNumber, '').trim();
+                    const response_message = `${cardNumber}<br>${name}`;    
+                    var response_text = document.getElementById("response").innerHTML = response_message;  
+                }else {
+                    const response_message = data.response
+                    var response_text = document.getElementById("response").innerHTML = response_message;  
+                }
+                
+                document.getElementById("loading").style.display = 'none';
+                document.getElementById('enter').style.display = 'none';
+                document.getElementById('back_to_main').style.display = 'flex';
+                startInterval();
+              } else {
+                timerId = setTimeout(fetchData, 5000);
+              }
+            })
+        }
+        
+        fetchData();
+        
+        const photoForm = document.querySelector('#photo-form');
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        const confirmButton = document.getElementById("submit_photo");
+        const photoInput = document.querySelector('#photo-upload');
+        
+        photoInput.addEventListener('change', () => {
+            confirmButton.disabled = !photoInput.files || !photoInput.files[0];
+        });
+        
+        confirmButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            
+            if (!photoInput.files || !photoInput.files[0]) {
+                UIkit.notification({message: 'Прикрепите фото!', status: 'danger'})
+                return;
+            }
+            showLoader();
+            document.getElementsByClassName('uk-button uk-button-default').disabled = true;
+            confirmButton.disabled = true;
+            confirmButton.style.backgroundColor = '#afafaf';
+            confirmButton.style.border = 'none';
+
+
+            const photoFile = photoInput.files[0];
+            const formData = new FormData();
+            formData.append('photo', photoFile);
+            
+            function fetchData() {
+                fetch('/api/v1/sendPhoto?id_order={{id_order}}', {
+                    headers: {
+                        'X-CSRFToken': csrfToken
+                    },
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    window.location.href = '/trade/successful_trade/{{id_order}}';
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            }
+            fetchData();
+        });
+        
+    
+</script>
+<script>
+    var timeleft = 600;
+    var downloadTimer;
+    
+    function startInterval() {
+        downloadTimer = setInterval(function() {
+            var minutes = Math.floor(timeleft / 60);
+            var seconds = timeleft % 60;
+
+            if (seconds < 10) {
+                seconds = "0" + seconds;
+            }
+            
+            document.getElementById("timerDisplay").innerHTML = minutes + ":" + seconds;
+            
+            timeleft -= 1;
+            if (timeleft < 0) {
+                clearInterval(downloadTimer);
+                fetch('/api/v1/sendLeave/{{id_order}}?message=' + 'Окончание времени');
+                window.location.href = "/";
+            }
+        }, 1000);
+    }
+</script>
+{% endblock content %}
