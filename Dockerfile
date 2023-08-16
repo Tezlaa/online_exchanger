@@ -19,6 +19,8 @@ RUN adduser --disabled-password root-user
 COPY ./src ./src
 WORKDIR /src
 
+RUN chown -R root-user:root-user /src/
+
 USER root-user
 
 CMD gunicorn -w 3 --chdir ./src config.wsgi --bind 0.0.0.0:8000 --forwarded-allow-ips=*.*

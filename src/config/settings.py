@@ -45,9 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'apps.exchange',
-    'apps.trade',
-    'apps.bot'
+    'apps.exchange.apps.ExchangeConfig',
+    'apps.trade.apps.TradeConfig',
+    'apps.bot.apps.BotConfig'
 ]
 
 MIDDLEWARE = [
