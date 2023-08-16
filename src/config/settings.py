@@ -45,9 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'exchange',
-    'trade',
-    'bot'
+    'apps.exchange',
+    'apps.trade',
+    'apps.bot'
 ]
 
 MIDDLEWARE = [
@@ -184,13 +184,13 @@ LOGGING = {
         'info_file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': 'info.log',
+            'filename': os.path.join(BASE_DIR, 'log/info.log'),
             'formatter': 'standard',
         },
         'sql_query': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'sql_query.log',
+            'filename': os.path.join(BASE_DIR, 'log/sql_query.log'),
             'formatter': 'standard',
         }
     },

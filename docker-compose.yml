@@ -5,6 +5,7 @@ services:
       - ./docker/database:/var/lib/postgresql/data
     env_file:
       - .env
+    restart: always
 
   web-app:
     build:
@@ -15,10 +16,10 @@ services:
       - ./docker/deployFiles/media:/src/media
     env_file:
       - .env
-    depends_on:
-      - database-cash2cash
     command: >
       sh -c "python manage.py collectstatic --noinput && python manage.py makemigrations && python manage.py migrate && gunicorn --bind 0.0.0.0:8000 config.wsgi:application"
+    depends_on:
+      - database-cash2cash
 
     restart: always
 

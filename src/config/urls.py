@@ -23,9 +23,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('exchange.urls')),
-    path('', include('trade.urls')),
-    path('bot/', include('bot.urls')),
+    path('', include('apps.exchange.urls')),
+    path('', include('apps.trade.urls')),
+    path('bot/', include('apps.bot.urls')),
 ]
 
 if settings.DEBUG:
