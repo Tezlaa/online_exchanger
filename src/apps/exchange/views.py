@@ -8,6 +8,7 @@ from django.views.generic import FormView
 from apps.exchange.models import OffersData
 from apps.exchange.services.P2Pparser.parsers_rate import ParseRate
 from apps.exchange.services.spliting import split_form_data_in_order_model
+from apps.exchange.tasks import test
 from apps.exchange.forms import MixinFormsAllOfferInfo
 
 from apps.trade.models import OpenOrder
@@ -23,6 +24,7 @@ class ExchangeMainPage(FormView):
     
     def get_context_data(self, **kwargs):
         contexts = super().get_context_data(**kwargs)
+        test.delay()
         
         currency_list = [
             ["RUB", "UAH"], ['BYN', 'UAH'], ["USD", "UAH"], ["EUR", "UAH"],
