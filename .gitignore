@@ -8,7 +8,7 @@ htmlcov
 database
 *.sqlite3
 deployFiles
-src/apps/*/migrations/*
 !src/apps/*/migrations/__init__.py
+src/apps/*/migrations/*
 
 *.log
