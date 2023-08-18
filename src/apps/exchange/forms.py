@@ -2,6 +2,7 @@ from typing import Tuple
 
 from django import forms
 from django.core.exceptions import ValidationError
+from django.db.utils import ProgrammingError
 
 from .services.datas import CurrencyInfo
 
@@ -16,8 +17,12 @@ def get_choices(self: CurrencyInfo) -> Tuple[Tuple[str, str], ...]:
                           'USDT': 'USDT        (Тезер)', 'BTC': 'BTC        (Bitcoin)',
                           'ETH': 'ETH        (Ethereum)'}
 
-    for name in (currency for currency in self.get_bank().keys()):
-        result += ((name, full_name_currency[name]),)
+    try:
+        for name in (currency for currency in self.get_bank().keys()):
+            result += ((name, full_name_currency[name]),)
+    except ProgrammingError:
+        pass
+    
     return result
 
 

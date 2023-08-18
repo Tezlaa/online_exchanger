@@ -16,9 +16,10 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.contrib.staticfiles import views
-from django.urls import re_path, path, include
 from django.conf import settings
+
+from django.urls import path, include
+from django.views.static import serve as mediaserve
 
 
 urlpatterns = [
@@ -29,6 +30,11 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
+    pass
+else:
     urlpatterns += [
-        re_path(r'^static/(?P<path>.*)$', views.serve),
+        path('media/<path:path>',
+             mediaserve, {'document_root': settings.MEDIA_ROOT}),
+        path('static/<path:path>',
+             mediaserve, {'document_root': settings.STATIC_ROOT}),
     ]
