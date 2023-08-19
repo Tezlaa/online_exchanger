@@ -1,3 +1,4 @@
+version: '3'
 services:
   database-cash2cash:
     image: postgres
@@ -9,35 +10,62 @@ services:
 
   web-app:
     build:
-      dockerfile: Dockerfile
       context: .
-    volumes:
-      - ./docker/deployFiles/static:/src/static
-      - ./docker/deployFiles/media:/src/media
+      dockerfile: Dockerfile
     env_file:
       - .env
-    command: >
-      sh -c "python manage.py collectstatic --noinput && python manage.py makemigrations && python manage.py migrate && gunicorn --bind 0.0.0.0:8000 config.wsgi:application"
+    volumes:
+      - ./docker/deployFiles/static:/src/static
     depends_on:
       - database-cash2cash
+    command: >
+      sh -c "python manage.py collectstatic --noinput &&
+             python manage.py makemigrations &&
+             python manage.py migrate &&
+             gunicorn --bind 0.0.0.0:8000 config.wsgi:application"
+    restart: always
 
+  redis:
+    image: redis:latest
+    hostname: redis
+    restart: always
+
+  celery_worker:
+    build:
+      context: .
+    hostname: celery_worker
+    entrypoint: celery
+    command: -A config.celery.app worker -l info
+    volumes:
+      - ./src:/src
+    env_file:
+      - .env
+    links:
+      - redis
+    depends_on:
+      - redis
     restart: always
 
   nginx:
     build:
-      dockerfile: ./docker/nginx/Dockerfile
       context: .
+      dockerfile: ./docker/nginx/Dockerfile
     image: web-nginx
     volumes:
       - ./docker/deployFiles/static:/src/static
-      - ./docker/deployFiles/media:/src/media
     depends_on:
       - web-app
     ports:
       - "${NGINX_EXTERNAL_PORT}:80"
+    env_file:
+      - .env
 
   adminer:
     image: adminer
     restart: always
     ports:
       - "8080:8080"
+
+networks:
+  celery_flower_network:
+    driver: bridge

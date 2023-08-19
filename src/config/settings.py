@@ -91,14 +91,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 #     }
 # }
 
-DEPLOY_RUN = bool(os.getenv('DEPLOY_RUN'))
+DOCKER_RUN = bool(os.getenv('DOCKER_RUN'))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': env.str('POSTGRES_DB'),
         'USER': env.str('POSTGRES_USER'),
         'PASSWORD': env.str('POSTGRES_PASSWORD'),
-        'HOST': env.str('POSTGRES_HOST') if DEPLOY_RUN else 'localhost',
+        'HOST': env.str('POSTGRES_HOST') if DOCKER_RUN else 'localhost',
         'PORT': '',  # default
     }
 }
@@ -229,14 +229,14 @@ CACHES = {
 CSRF_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SAMESITE = 'Strict'
 
-REDIS_HOST = env.str('REDIS_HOST')
+REDIS_HOST = env.str('REDIS_HOST') if not DOCKER_RUN else 'redis'
 REDIS_PORT = env.str('REDIS_PORT')
 
 CELERY_BROKER_URL = 'redis://{}:{}/0'.format(REDIS_HOST, REDIS_PORT)
-CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
-CELERY_RESULT_BACKEND = CELERY_BROKER_URL
-CELERY_ACKS_LATE = True
-CELERY_TASK_TRACK_STARTED = True
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+# CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+# CELERY_ACKS_LATE = True
+# CELERY_TASK_TRACK_STARTED = True
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
