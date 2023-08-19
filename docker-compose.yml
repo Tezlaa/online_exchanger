@@ -46,6 +46,24 @@ services:
       - redis
     restart: always
 
+  flower:
+    build:
+      context: .
+    hostname: flower
+    entrypoint: celery
+    command: -A config.celery.app flower
+    volumes:
+      - ./src:/src
+    env_file:
+      - .env
+    links:
+      - redis
+    depends_on:
+      - redis
+    restart: always
+    ports:
+      - "5555:5555"
+
   nginx:
     build:
       context: .
