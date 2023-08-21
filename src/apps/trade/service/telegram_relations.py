@@ -45,7 +45,6 @@ def send_offer_in_admin_chat(info_data: dict) -> None:
                      f'Имя получателя: `{info_data["name_taker"]}`\n'
                      f'Номер получателя: `{info_data["number_taker"]}`\n'
                      f'Карта получателя: `{info_data["card_taker"]}`')
-    
     requests.get(url=f"https://api.telegram.org/bot{settings.TELEGRAM_TOKEN}/sendMessage",
                  data={"chat_id": settings.CHAT_ID,
                        "text": str(message_admin),

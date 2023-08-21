@@ -1,11 +1,9 @@
 import asyncio
-import requests
-
-from django.conf import settings
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+from apps.trade.tasks import send_photo_to_telegram, send_message_to_telegram
 from apps.trade.models import OffersData
 from apps.trade.utils.decorator import valid_open_order
 from apps.trade.service.telegram_relations import request_telegram
@@ -32,11 +30,7 @@ class SendPhotoAdminTelegram(APIView):
         photo_content = photo_file.read()
         photo_file.close()  # Close the file to free up resources
 
-        requests.post(url=f'https://api.telegram.org/bot{settings.TELEGRAM_TOKEN}/sendPhoto',
-                      data={
-                          'chat_id': settings.CHAT_ID},
-                      files={
-                          'photo': ('image.jpg', photo_content)})
+        send_photo_to_telegram.delay(photo_content)
 
         return Response({'success': True})
 
@@ -47,9 +41,7 @@ class SendLeaveAdminTelegram(APIView):
     def get(self, request, id_order, object_database):
         message = request.GET['message']
 
-        requests.get(url=f"https://api.telegram.org/bot{settings.TELEGRAM_TOKEN}/sendMessage",
-                     data={"chat_id": settings.CHAT_ID,
-                           "text": message,
-                           "parse_mode": "MARKDOWN", })
+        send_message_to_telegram.delay(message)
+        
         object_database.delete()
         return Response({'success': True})
